@@ -39,7 +39,7 @@ namespace Senai.Desenvolvimento.Roman.Controllers
 
         [Authorize(Roles = "ADMINISTRADOR")]
         [Route("{Area}")]
-        [HttpGet]
+        [HttpPost]
         public IActionResult listarPorArea(string area)
         {
             try

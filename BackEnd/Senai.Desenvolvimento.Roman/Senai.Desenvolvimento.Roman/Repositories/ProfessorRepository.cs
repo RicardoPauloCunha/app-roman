@@ -52,10 +52,10 @@ namespace Senai.Desenvolvimento.Roman.Repositories
             string Select = "SELECT P.PROFESSOR_ID, U.NOME, E.EQUIPE FROM PROFESSORES P JOIN USUARIOS U ON U.ID = P.ID_USUARIO JOIN EQUIPES E ON E.EQUIPE_ID = P.ID_AREA WHERE P.ID_AREA = @AREA";
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
+                    con.Open();
                 using (SqlCommand cmd = new SqlCommand(Select, con))
                 {
                     cmd.Parameters.AddWithValue("@AREA", area);
-                    con.Open();
                     SqlDataReader sqr = cmd.ExecuteReader();
                     if (sqr.HasRows)
                     {
@@ -76,10 +76,9 @@ namespace Senai.Desenvolvimento.Roman.Repositories
                             lista.Add(professor);
                         }
                     }
-                    return lista;
-
                 }
             }
+                    return lista;
         }
     }
 }
