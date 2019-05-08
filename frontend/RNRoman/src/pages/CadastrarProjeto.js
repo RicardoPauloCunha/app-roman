@@ -14,6 +14,7 @@ class CadastrarProjetos extends Component {
         }
     }
 
+    // função de cadastrar um projeto
     _cadastrarProjeto = async () => {
         const respota = await api.post("/Projeto", {
             titulo: this.state.titulo,
@@ -22,12 +23,15 @@ class CadastrarProjetos extends Component {
             idprofessor: 1
         });
 
+        // manipulando a resposta
         const status = respota.status;
         console.warn(status);
     }
 
+    // layout
     render() {
         return (
+            // alterar o scrollView de lugar *
             <ScrollView style={styles.projetosContainer}>
                 <View style={styles.projetosHeader}>
                     <Text style={styles.projetosHeaderTitulo}>{"Projetos".toLocaleUpperCase()}</Text>
@@ -37,6 +41,7 @@ class CadastrarProjetos extends Component {
                         <Text style={styles.mainCadastroTitulo}>Cadastrar Projeto</Text>
                         <View style={styles.mainCadastroLinha}>
                         </View>
+                        {/* Formulario de cadastro de Projetos */}
                         <TextInput
                             style={styles.inputCadastro}
                             placeholder="Titulo"
@@ -58,10 +63,10 @@ class CadastrarProjetos extends Component {
                             onChangeText={descricao => this.setState({descricao})}
                         />
                         <TouchableOpacity
-                            style={styles.buttonLogin}
+                            style={styles.buttonCadastro}
                             onPress={this._cadastrarProjeto}
                         >
-                            <Text style={styles.buttonLoginText}>Cadastrar</Text>
+                            <Text style={styles.buttonCadastroText}>Cadastrar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -70,7 +75,14 @@ class CadastrarProjetos extends Component {
     }
 }
 
+// estilo
 const styles = StyleSheet.create({
+    //container
+    projetosContainer: {
+
+    },
+
+    // Heaer
     projetosHeader: {
         width: "100%",
         height: 50,
@@ -83,6 +95,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
 
+    // main container
     projetosMain: {
         width: "100%",
         justifyContent: "center",
@@ -90,14 +103,19 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
 
+    // form (formulario de cadastro)
+    // form container
     mainCadastro: {
         width: "100%",
         alignItems: "center",
     },
+
+    // form header (titulo) 
     mainCadastroTitulo: {
         color: "#696969",
         fontSize: 25,
     },
+    // linha
     mainCadastroLinha: {
         width: "70%",
         height: 1,
@@ -105,6 +123,7 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },  
 
+    // inputs e butões
     inputCadastro: {
         width: "80%",
         borderColor: "rgba(13, 173, 255, 0.3)",
@@ -135,7 +154,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
 
-    buttonLogin: {
+    buttonCadastro: {
         borderRadius: 20,
         backgroundColor: "#0dadff",
         marginTop: 15,
@@ -143,7 +162,8 @@ const styles = StyleSheet.create({
         paddingLeft: 17,
         paddingRight: 17
     },
-    buttonLoginText: {
+
+    buttonCadastroText: {
         fontSize: 16,
         color: "white"
     }

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import { View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
 
+import apiDeslogado from "../services/apiDeslogado";
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -12,16 +14,20 @@ class Login extends Component {
         }
     }
 
+    // função de efetuar login
     _efetuarLogin = async () => {
-        const respota = await api.post("/Login", {
+        // chamada na api
+        const respota = await apiDeslogado.post("/Login", {
             email: this.setState.email,
             senha: this.state.senha,
         });
 
+        // manipulando a resposta
         const status = respota.status;
         console.warn(status);
     }
 
+    // layout
     render() {
         return (
             <ImageBackground
@@ -61,10 +67,11 @@ class Login extends Component {
     }
 }
 
+// estilos
 const styles = StyleSheet.create({
+    // container, ou div global 
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        // backgroundColor: "rgba(13, 173, 255, 0.7)"
         backgroundColor: "rgba(0, 0, 205, 0.6)"
     },
     main: {
@@ -74,6 +81,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+
+    // titulo "Roman"
     header: {
         marginBottom: 50
     },
@@ -82,6 +91,8 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontFamily: "monospaced"
     },
+
+    // form de login
     mainLogin: {
         width: "100%",
         alignItems: "center",
@@ -91,6 +102,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         marginBottom: 17,
     },
+
+    // butões e inputs
     inputLogin: {
         width: "80%",
         borderBottomColor: "white",

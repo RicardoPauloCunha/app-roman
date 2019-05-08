@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const api = axios.create({
+// url para chamada na api quando o usuário estiver logado, pois passa o Token
+const apiLogado = axios.create({
     baseURL: "http://192.168.3.105:5000/api",
     headers: {
         "Content-Type": "application/json",
@@ -8,4 +9,4 @@ const api = axios.create({
     }
 });
 
-export default api;
+export default apiLogado;

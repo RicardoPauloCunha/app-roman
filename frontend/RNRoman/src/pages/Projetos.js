@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { View, Text, FlatList, ScrollView, StyleSheet} from "react-native";
 
-import api from "../services/api";
+import apiLogado from "../services/apiLogado";
 
 class Projetos extends Component {
     constructor(props) {
@@ -13,16 +13,19 @@ class Projetos extends Component {
         }
     }
 
+    // carrrega a lista quando iniciar a pagina
     componentDidMount() {
         this.listarProjetos();
     }
 
+    // função de listar os projetos
     listarProjetos = async () => {
-        const respota = await api.get("/Projeto");
+        const respota = await apiLogado.get("/Projeto");
         const dadosLista = respota.data;
         this.setState({listaProjetos: dadosLista});
     };
 
+    // layout
     render() {
         return (
             <ScrollView style={styles.projetosContainer}>
@@ -30,6 +33,7 @@ class Projetos extends Component {
                     <Text style={styles.projetosHeaderTitulo}>{"Projetos".toLocaleUpperCase()}</Text>
                 </View>
                 <View style={styles.projetosMain}>
+                    {/* lista todos os Projetos */}
                     <FlatList
                         data={this.state.listaProjetos}
                         keyExtractor={item => item.projetoId}
@@ -40,6 +44,7 @@ class Projetos extends Component {
         )
     }
 
+    // função que carrega item por item aplicando o estilo abaixo
     renderizarItem = ({ item }) => (
         <View style={styles.itemContainer}>
             <View style={styles.itemHeader}>
@@ -54,16 +59,19 @@ class Projetos extends Component {
     )
 }
 
+//estilos
 const styles = StyleSheet.create({
+    // container
     projetosContainer: {
         flex: 1,
         marginBottom: 30
     },
+
+    // header
     projetosHeader: {
         width: "100%",
         height: 50,
         backgroundColor: "#0dadff",
-        // backgroundColor: "#0000cd",
         justifyContent: "center",
         alignItems: "center",
     },
@@ -72,6 +80,7 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     
+    // main container
     projetosMain: {
         width : "100%",
         justifyContent: "center",
@@ -79,6 +88,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
 
+    // item (projeto)
+    // container
     itemContainer: {
         width: 250,
         margin: 10,
@@ -89,6 +100,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     },
+
+    // header (titulo e tema)
     itemHeader: {
         justifyContent: "center",
         marginBottom: 5,
@@ -102,6 +115,8 @@ const styles = StyleSheet.create({
     itemHeaderTema: {
         color: "#4F4F4F"
     },
+
+    // main (descrição)
     itemMainDescricao: {
         color: "#808080",
     }
