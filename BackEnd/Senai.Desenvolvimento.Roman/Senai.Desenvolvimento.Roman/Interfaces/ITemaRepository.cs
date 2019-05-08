@@ -24,6 +24,12 @@ namespace Senai.Desenvolvimento.Roman.Interfaces
         /// Altera um tema que tenha o mesmo id recebido como parâmetro.
         /// </summary>
         /// <param name="id"></param>
-        void Alterar(int id);
+        void Alterar(Temas tema);
+
+        /// <summary>
+        /// Lista os temas ativos
+        /// </summary>
+        /// <returns>Retorna uma lista de temas ativos</returns>
+        List<Temas> TemasAtivos();
     }
 }
