@@ -1,14 +1,29 @@
 import React, { Component } from "react";
 
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, } from "react-native";
+import api from "../services/api";
 
 class CadastrarProjetos extends Component {
     constructor(props) {
         super(props);
-
-        this.setState = {
-
+        
+        this.state = {
+            titulo: "",
+            idTema: "",
+            descricao: ""
         }
+    }
+
+    _cadastrarProjeto = async () => {
+        const respota = await api.post("/Projeto", {
+            titulo: this.state.titulo,
+            idTema: this.state.idTema,
+            descricao: this.state.descricao,
+            idprofessor: 1
+        });
+
+        const status = respota.status;
+        console.warn(status);
     }
 
     render() {
@@ -26,12 +41,13 @@ class CadastrarProjetos extends Component {
                             style={styles.inputCadastro}
                             placeholder="Titulo"
                             placeholderTextColor="#808080"
+                            onChangeText={titulo => this.setState({titulo})}
                         />
                         <TextInput
                             style={styles.inputCadastro}
-                            placeholder="Tema"
+                            placeholder="IdTema"
                             placeholderTextColor="#808080"
-
+                            onChangeText={idTema => this.setState({idTema})}
                         />
                         <TextInput
                             style={styles.inputCadastroDescricao}
@@ -39,9 +55,11 @@ class CadastrarProjetos extends Component {
                             numberOfLines={4}
                             placeholder="Descrição"
                             placeholderTextColor="#808080"
+                            onChangeText={descricao => this.setState({descricao})}
                         />
                         <TouchableOpacity
                             style={styles.buttonLogin}
+                            onPress={this._cadastrarProjeto}
                         >
                             <Text style={styles.buttonLoginText}>Cadastrar</Text>
                         </TouchableOpacity>

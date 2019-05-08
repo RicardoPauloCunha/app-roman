@@ -12,6 +12,16 @@ class Login extends Component {
         }
     }
 
+    _efetuarLogin = async () => {
+        const respota = await api.post("/Login", {
+            email: this.setState.email,
+            senha: this.state.senha,
+        });
+
+        const status = respota.status;
+        console.warn(status);
+    }
+
     render() {
         return (
             <ImageBackground
@@ -29,15 +39,18 @@ class Login extends Component {
                             style={styles.inputLogin}
                             placeholder="Email"
                             placeholderTextColor="white"
+                            onChangeText={email => this.setState({email})}
                         />
                         <TextInput
                             style={styles.inputLogin}
                             placeholder="Senha"
                             placeholderTextColor="white"
                             password="true"
+                            onChangeText={senha => this.setState({senha})}
                         />
                         <TouchableOpacity
                             style={styles.buttonLogin}
+                            onPress={this._efetuarLogin}
                         >
                             <Text style={styles.buttonLoginText}>Entrar</Text>
                         </TouchableOpacity>

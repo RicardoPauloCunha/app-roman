@@ -2,21 +2,26 @@ import React, { Component } from "react";
 
 import { View, Text, FlatList, ScrollView, StyleSheet} from "react-native";
 
+import api from "../services/api";
+
 class Projetos extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            listaProjetos: [
-                { id: "1", titulo: "Desennvo lvimento de Sistemas", descricao: "descricao do projeto 1", tema: "tema 1" },
-                { id: "2", titulo: "Projeto 2", descricao: "descricao do projeto 2", tema: "tema 2" },
-                { id: "3", titulo: "Projeto 3", descricao: "descricao do projeto 3", tema: "tema 3" },
-                { id: "4", titulo: "Projeto 4", descricao: "descricao do projeto 4 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", tema: "tema 4" },
-                { id: "5", titulo: "Projeto 4", descricao: "descricao do projeto 4 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", tema: "tema 4" },
-                { id: "6", titulo: "Projeto 4", descricao: "descricao do projeto 4 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", tema: "tema 4" }
-            ]
+            listaProjetos: []
         }
     }
+
+    componentDidMount() {
+        this.listarProjetos();
+    }
+
+    listarProjetos = async () => {
+        const respota = await api.get("/Projeto");
+        const dadosLista = respota.data;
+        this.setState({listaProjetos: dadosLista});
+    };
 
     render() {
         return (
@@ -27,7 +32,7 @@ class Projetos extends Component {
                 <View style={styles.projetosMain}>
                     <FlatList
                         data={this.state.listaProjetos}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item.projetoId}
                         renderItem={this.renderizarItem}
                     />
                 </View>
@@ -39,7 +44,7 @@ class Projetos extends Component {
         <View style={styles.itemContainer}>
             <View style={styles.itemHeader}>
                 <Text style={styles.itemHeaderTitulo}>{item.titulo}</Text>
-                <Text style={styles.itemHeaderTema}>{item.tema}</Text>
+                <Text style={styles.itemHeaderTema}>{item.idTemaNavigation.tema}</Text>
             </View>
             <View style={styles.itemMain}>
                 <Text style={styles.itemMainDescricao}>{item.descricao}</Text>
