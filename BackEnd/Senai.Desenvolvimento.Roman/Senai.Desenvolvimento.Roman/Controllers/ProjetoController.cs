@@ -22,7 +22,7 @@ namespace Senai.Sprint5.Exercicio.Roman.Controllers
             ProjetoRepository = new ProjetoRepository();
         }
 
-        [Authorize(Roles = "ADMINISTRADOR")]
+        [Authorize(Roles = "ADMINISTRADOR, PROFESSOR")]
         [HttpGet]
         public IActionResult ListarProjetos()
         {
@@ -35,7 +35,7 @@ namespace Senai.Sprint5.Exercicio.Roman.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "ADMINISTRADOR")]
+        [Authorize(Roles = "ADMINISTRADOR, PROFESSOR")]
         [HttpPost]
         public IActionResult Cadastrar(Projetos projeto)
         {

@@ -28,7 +28,7 @@ namespace Senai.Desenvolvimento.Roman.Controllers
         {
             try
             {
-                
+
                 return Ok(ProfessorRepository.listarProfessores());
             }
             catch (Exception ex)
@@ -38,13 +38,13 @@ namespace Senai.Desenvolvimento.Roman.Controllers
         }
 
         [Authorize(Roles = "ADMINISTRADOR")]
-        [Route("{Area}")]
-        [HttpPost]
-        public IActionResult listarPorArea(string area)
+        [HttpGet("Area/{equipe}")]        
+        public IActionResult listarPorArea(string equipe)
         {
             try
-            {                
-                return Ok(ProfessorRepository.listarProfessoresPorArea(area));
+            {
+                
+                return Ok(ProfessorRepository.listarProfessoresPorArea(equipe));                                                
             }
             catch (Exception ex)
             {

@@ -7,5 +7,7 @@ namespace Senai.Desenvolvimento.Roman.Domains
     {
         public int EquipeId { get; set; }
         public string Nome { get; set; }
+
+        public Professores professor { get; set; }
     }
 }

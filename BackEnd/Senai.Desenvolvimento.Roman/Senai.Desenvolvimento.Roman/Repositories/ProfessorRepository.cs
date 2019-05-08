@@ -46,16 +46,16 @@ namespace Senai.Desenvolvimento.Roman.Repositories
             }
         }
 
-        public List<Professores> listarProfessoresPorArea(string area)
+        public List<Professores> listarProfessoresPorArea(string equipe)
         {
             List<Professores> lista = new List<Professores>();
-            string Select = "SELECT P.PROFESSOR_ID, U.NOME, E.EQUIPE FROM PROFESSORES P JOIN USUARIOS U ON U.ID = P.ID_USUARIO JOIN EQUIPES E ON E.EQUIPE_ID = P.ID_AREA WHERE P.ID_AREA = @AREA";
+            string Select = "SELECT P.PROFESSOR_ID, U.NOME, E.EQUIPE FROM PROFESSORES P JOIN USUARIOS U ON U.ID = P.ID_USUARIO JOIN EQUIPES E ON E.EQUIPE_ID = P.ID_AREA WHERE E.EQUIPE = @EQUIPE";
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
                     con.Open();
                 using (SqlCommand cmd = new SqlCommand(Select, con))
                 {
-                    cmd.Parameters.AddWithValue("@AREA", area);
+                    cmd.Parameters.AddWithValue("@EQUIPE", equipe);
                     SqlDataReader sqr = cmd.ExecuteReader();
                     if (sqr.HasRows)
                     {

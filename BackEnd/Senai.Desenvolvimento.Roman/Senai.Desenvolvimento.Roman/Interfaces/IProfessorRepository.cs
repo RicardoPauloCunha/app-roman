@@ -18,6 +18,6 @@ namespace Senai.Desenvolvimento.Roman.Interfaces
         /// Lista os professores pela área selecionada
         /// </summary>
         /// <returns>Retorna uma lista de professores filtrados por área</returns>
-        List<Professores> listarProfessoresPorArea(string area);
+        List<Professores> listarProfessoresPorArea(string equipe);
     }
 }
