@@ -1,31 +1,38 @@
 import React, { Component } from "react";
 
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, } from "react-native";
-import api from "../services/api";
+import apiDeslogado from "../services/apiDeslogado";
 
 class CadastrarProjetos extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             titulo: "",
             idTema: "",
-            descricao: ""
+            descricao: "",
+            mensagem: ""
         }
     }
 
     // função de cadastrar um projeto
     _cadastrarProjeto = async () => {
-        const respota = await api.post("/Projeto", {
-            titulo: this.state.titulo,
-            idTema: this.state.idTema,
-            descricao: this.state.descricao,
-            idprofessor: 1
-        });
+        try {
+            const respota = await apiDeslogado.post("/Projeto", {
+                titulo: this.state.titulo,
+                idTema: this.state.idTema,
+                descricao: this.state.descricao,
+                idprofessor: 1
+            });
 
-        // manipulando a resposta
-        const status = respota.status;
-        console.warn(status);
+            // manipulando a resposta
+            if (respota.status == 200) {
+                this.setState({ mensagem: "Projeto cadastrado com sucesso!" })
+            }
+        }
+        catch (erro) {
+            this.setState({ mensagem: "Dados inválidos!" })
+        }
     }
 
     // layout
@@ -39,20 +46,19 @@ class CadastrarProjetos extends Component {
                 <View style={styles.projetosMain}>
                     <View style={styles.mainCadastro}>
                         <Text style={styles.mainCadastroTitulo}>Cadastrar Projeto</Text>
-                        <View style={styles.mainCadastroLinha}>
-                        </View>
+                        <View style={styles.mainCadastroLinha}></View>
                         {/* Formulario de cadastro de Projetos */}
                         <TextInput
                             style={styles.inputCadastro}
                             placeholder="Titulo"
                             placeholderTextColor="#808080"
-                            onChangeText={titulo => this.setState({titulo})}
+                            onChangeText={titulo => this.setState({ titulo })}
                         />
                         <TextInput
                             style={styles.inputCadastro}
                             placeholder="IdTema"
                             placeholderTextColor="#808080"
-                            onChangeText={idTema => this.setState({idTema})}
+                            onChangeText={idTema => this.setState({ idTema })}
                         />
                         <TextInput
                             style={styles.inputCadastroDescricao}
@@ -60,7 +66,7 @@ class CadastrarProjetos extends Component {
                             numberOfLines={4}
                             placeholder="Descrição"
                             placeholderTextColor="#808080"
-                            onChangeText={descricao => this.setState({descricao})}
+                            onChangeText={descricao => this.setState({ descricao })}
                         />
                         <TouchableOpacity
                             style={styles.buttonCadastro}
@@ -68,6 +74,10 @@ class CadastrarProjetos extends Component {
                         >
                             <Text style={styles.buttonCadastroText}>Cadastrar</Text>
                         </TouchableOpacity>
+
+                        <View style={styles.cadastroMensagem}>
+                            <Text>{this.state.mensagem}</Text>
+                        </View>
                     </View>
                 </View>
             </ScrollView>
@@ -121,7 +131,7 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: "rgba(13, 173, 255, 0.5)",
         marginBottom: 25,
-    },  
+    },
 
     // inputs e butões
     inputCadastro: {
@@ -166,6 +176,11 @@ const styles = StyleSheet.create({
     buttonCadastroText: {
         fontSize: 16,
         color: "white"
+    },
+
+    //Mensagem erro
+    cadastroMensagem: {
+        marginTop: 10
     }
 })
 

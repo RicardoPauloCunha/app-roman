@@ -1,30 +1,44 @@
 import React, { Component } from "react";
 
-import { View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
+import { View, ScrollView, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, AsyncStorage } from "react-native";
 
 import apiDeslogado from "../services/apiDeslogado";
 
 class Login extends Component {
+    static navigationOptions = {
+        header: null
+    };
+
     constructor(props) {
         super(props);
 
         this.state = {
             email: "",
             senha: "",
+            mensagem: ""
         }
     }
 
     // função de efetuar login
     _efetuarLogin = async () => {
-        // chamada na api
-        const respota = await apiDeslogado.post("/Login", {
-            email: this.setState.email,
-            senha: this.state.senha,
-        });
+        try {
+            // chamada na api
+            const respota = await apiDeslogado.post("/Login", {
+                email: this.state.email,
+                senha: this.state.senha
+            });
 
-        // manipulando a resposta
-        const status = respota.status;
-        console.warn(status);
+            // manipulando a resposta
+            if (respota.status === 200) {
+                const token = respota.data.token;
+                await AsyncStorage.setItem("UsuarioToken", token);
+                this.props.navigation.navigate("MenuNavigator");
+                this.setState({ mensagem: "Login efetuado com sucesso!" })
+            }
+        }
+        catch (erro) {
+            this.setState({ mensagem: "Email ou senha inválidos!" })
+        }
     }
 
     // layout
@@ -45,14 +59,14 @@ class Login extends Component {
                             style={styles.inputLogin}
                             placeholder="Email"
                             placeholderTextColor="white"
-                            onChangeText={email => this.setState({email})}
+                            onChangeText={email => this.setState({ email })}
                         />
                         <TextInput
                             style={styles.inputLogin}
                             placeholder="Senha"
                             placeholderTextColor="white"
                             password="true"
-                            onChangeText={senha => this.setState({senha})}
+                            onChangeText={senha => this.setState({ senha })}
                         />
                         <TouchableOpacity
                             style={styles.buttonLogin}
@@ -60,6 +74,9 @@ class Login extends Component {
                         >
                             <Text style={styles.buttonLoginText}>Entrar</Text>
                         </TouchableOpacity>
+                    </View>
+                    <View style={styles.cadastroMensagem}>
+                        <Text style={styles.cadastroMensagemText}>{this.state.mensagem}</Text>
                     </View>
                 </View>
             </ImageBackground>
@@ -88,7 +105,7 @@ const styles = StyleSheet.create({
     },
     headerTitulo: {
         color: "white",
-        fontSize: 30,
+        fontSize: 35,
         fontFamily: "monospaced"
     },
 
@@ -123,6 +140,14 @@ const styles = StyleSheet.create({
     },
     buttonLoginText: {
         fontSize: 16
+    },
+
+    //Mensagem erro
+    cadastroMensagem: {
+        marginTop: 15,
+    },
+    cadastroMensagemText: {
+        color: "white"
     }
 })
 

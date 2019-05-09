@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
-import { View, Text, FlatList, ScrollView, StyleSheet} from "react-native";
+import { View, Text, FlatList, ScrollView, StyleSheet, AsyncStorage} from "react-native";
 
+import apiDeslogado from "../services/apiDeslogado";
 import apiLogado from "../services/apiLogado";
 
 class Projetos extends Component {
@@ -9,7 +10,7 @@ class Projetos extends Component {
         super(props);
 
         this.state = {
-            listaProjetos: []
+            listaProjetos: [],
         }
     }
 
@@ -20,9 +21,15 @@ class Projetos extends Component {
 
     // função de listar os projetos
     listarProjetos = async () => {
-        const respota = await apiLogado.get("/Projeto");
+        const token = await AsyncStorage.getItem("UsuarioToken");
+
+        const respota = await apiLogado.get("/Projeto", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         const dadosLista = respota.data;
-        this.setState({listaProjetos: dadosLista});
+        this.setState({ listaProjetos: dadosLista });
     };
 
     // layout
@@ -79,10 +86,10 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 25
     },
-    
+
     // main container
     projetosMain: {
-        width : "100%",
+        width: "100%",
         justifyContent: "center",
         alignItems: "center",
         marginTop: 20,
