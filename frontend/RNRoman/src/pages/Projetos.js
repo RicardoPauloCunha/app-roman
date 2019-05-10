@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import { View, Text, FlatList, ScrollView, StyleSheet, AsyncStorage} from "react-native";
 
-import apiDeslogado from "../services/apiDeslogado";
 import apiLogado from "../services/apiLogado";
 
 class Projetos extends Component {
@@ -23,12 +22,12 @@ class Projetos extends Component {
     listarProjetos = async () => {
         const token = await AsyncStorage.getItem("UsuarioToken");
 
-        const respota = await apiLogado.get("/Projeto", {
+        const resposta = await apiLogado.get("/Projeto", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-        const dadosLista = respota.data;
+        const dadosLista = resposta.data;
         this.setState({ listaProjetos: dadosLista });
     };
 
@@ -71,7 +70,6 @@ const styles = StyleSheet.create({
     // container
     projetosContainer: {
         flex: 1,
-        marginBottom: 30
     },
 
     // header

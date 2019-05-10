@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, Text, FlatList, ScrollView, StyleSheet, AsyncStorage } from "react-native";
+import { View, Text, FlatList, ScrollView, StyleSheet, AsyncStorage, TextInput, TouchableOpacity} from "react-native";
 
 import apiLogado from "../services/apiLogado";
 // não esquecer de implentar as TAGs usada para desenvolver o html aki
@@ -11,6 +11,8 @@ class Temas extends Component {
 
         this.state = {
             listaTemas: [],
+            tema: "",
+            mensagem: ""
         }
     }
 
@@ -23,16 +25,42 @@ class Temas extends Component {
     listarTemas = async () => {
         const token = await AsyncStorage.getItem("UsuarioToken");
 
-        const respota = await apiLogado.get("/Tema", {
+        const resposta = await apiLogado.get("/Tema", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-        const dadosLista = respota.data;
+        const dadosLista = resposta.data;
         this.setState({ listaTemas: dadosLista });
 
         console.warn(dadosLista)
     };
+
+    // cadastro de temas
+    _cadastrarTema = async () => {
+        const token = await AsyncStorage.getItem("UsuarioToken");
+
+        try {
+            const resposta = await apiLogado.post("/Tema", {
+                tema: this.state.tema,
+                ativo: 1
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            // manipula a respota
+            if(resposta.status === 200) {
+                this.setState({mensagem: "Tema cadastrado com sucesso!"});
+                this.listarTemas();
+            }
+        }
+        catch(erro) {
+            this.setState({mensagem: "Dados inválidos!"})
+        }
+    }
 
     // layout
     render() {
@@ -48,6 +76,29 @@ class Temas extends Component {
                         keyExtractor={item => item.temaid}
                         renderItem={this.renderizarItem}
                     />
+
+                    {/* cadastra um novo tema */}
+                    <View style={styles.mainCadastro}>
+                        <Text style={styles.mainCadastroTitulo}>Cadastrar Temas</Text>
+                        <View style={styles.mainCadastroLinha}></View>
+                        {/* Formulario de cadastro de Temas */}
+                        <TextInput
+                            style={styles.inputCadastro}
+                            placeholder="Nome do Tema"
+                            placeholderTextColor="#808080"
+                            onChangeText={tema => this.setState({ tema })}
+                        />
+                        <TouchableOpacity
+                            style={styles.buttonCadastro}
+                            onPress={this._cadastrarTema}
+                        >
+                            <Text style={styles.buttonCadastroText}>Cadastrar</Text>
+                        </TouchableOpacity>
+
+                        <View style={styles.cadastroMensagem}>
+                            <Text>{this.state.mensagem}</Text>
+                        </View>
+                    </View>
                 </View>
             </ScrollView>
         )
@@ -94,7 +145,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
 
-    // item (projeto)
+    // item (tema)
     // container
     itemContainer: {
         width: 250,
@@ -113,6 +164,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
 
+    // item
     itemHeaderTema: {
         flex: 1,
         fontSize: 17,
@@ -125,6 +177,61 @@ const styles = StyleSheet.create({
         color: "#4F4F4F",
         textAlign: "center"
     },
+
+    // form (formulario de cadastro)
+    // form container
+    mainCadastro: {
+        width: "100%",
+        alignItems: "center",
+        marginTop: 20
+    },
+
+    // form header (titulo) 
+    mainCadastroTitulo: {
+        color: "#696969",
+        fontSize: 25,
+    },
+    // linha
+    mainCadastroLinha: {
+        width: "70%",
+        height: 1,
+        backgroundColor: "rgba(13, 173, 255, 0.5)",
+        marginBottom: 25,
+    },
+
+    // inputs e butões
+    inputCadastro: {
+        width: "80%",
+        borderColor: "rgba(13, 173, 255, 0.3)",
+        backgroundColor: "rgba(180, 206, 232, 0.1)",
+        borderWidth: 0.9,
+        borderRadius: 15,
+        marginBottom: 15,
+        color: "#808080",
+        fontSize: 16,
+        height: 50,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+
+    buttonCadastro: {
+        borderRadius: 20,
+        backgroundColor: "#0dadff",
+        marginTop: 15,
+        padding: 7,
+        paddingLeft: 17,
+        paddingRight: 17
+    },
+
+    buttonCadastroText: {
+        fontSize: 16,
+        color: "white"
+    },
+
+    //Mensagem erro
+    cadastroMensagem: {
+        marginTop: 10
+    }
 })
 
 export default Temas;

@@ -23,13 +23,13 @@ class Login extends Component {
     _efetuarLogin = async () => {
         try {
             // chamada na api
-            const respota = await apiDeslogado.post("/Login", {
+            const resposta = await apiDeslogado.post("/Login", {
                 email: this.state.email,
                 senha: this.state.senha
             });
 
             // manipulando a resposta
-            if (respota.status === 200) {
+            if (resposta.status === 200) {
                 const token = respota.data.token;
                 await AsyncStorage.setItem("UsuarioToken", token);
                 this.props.navigation.navigate("MenuNavigator");

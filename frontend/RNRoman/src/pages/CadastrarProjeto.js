@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, } from "react-native";
-import apiDeslogado from "../services/apiDeslogado";
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, AsyncStorage} from "react-native";
+import apiLogado from "../services/apiLogado";
 
 class CadastrarProjetos extends Component {
     constructor(props) {
@@ -17,16 +17,23 @@ class CadastrarProjetos extends Component {
 
     // função de cadastrar um projeto
     _cadastrarProjeto = async () => {
+        const token = await AsyncStorage.getItem("UsuarioToken");
+
         try {
-            const respota = await apiDeslogado.post("/Projeto", {
+            const resposta = await apiLogado.post("/Projeto", {
                 titulo: this.state.titulo,
                 idTema: this.state.idTema,
                 descricao: this.state.descricao,
                 idprofessor: 1
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
 
             // manipulando a resposta
-            if (respota.status == 200) {
+            if (resposta.status == 200) {
                 this.setState({ mensagem: "Projeto cadastrado com sucesso!" })
             }
         }
