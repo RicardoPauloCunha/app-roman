@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, AsyncStorage} from "react-native";
 import apiLogado from "../services/apiLogado";
+import Projetos from "./Projetos";
 
 class CadastrarProjetos extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class CadastrarProjetos extends Component {
 
             // manipulando a resposta
             if (resposta.status == 200) {
-                this.setState({ mensagem: "Projeto cadastrado com sucesso!" })
+                this.setState({ mensagem: "Projeto cadastrado com sucesso!" });
             }
         }
         catch (erro) {

@@ -18,10 +18,10 @@ class Professores extends Component {
         this.listarProfessores();
     }
 
-    listarProfessores() {
+    listarProfessores = async () => {
         const token = await AsyncStorage.getItem("UsuarioToken");
 
-        const resposta = await apiLogado.get("Professor", {
+        const resposta = await apiLogado.get("/Professor", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -51,11 +51,11 @@ class Professores extends Component {
     renderizarItem = ({item}) => (
         <View style={styles.itemContainer}>
             <View style={styles.itemHeader}>
-                <Text style={styles.itemHeaderTitulo}>{item.professorId}</Text>
+                <Text style={styles.itemHeaderTitulo}>{item.idUsuarioNavigation.nome}</Text>
             </View>
             <View style={styles.itemMain}>
-                <Text style={styles.itemMainDescricao}>{item.idUsuario}</Text>
-                <Text style={styles.itemMainDescricao}>{item.idEquipe}</Text>
+                <Text style={styles.itemMainDescricao}>Id: {item.professorId}</Text>
+                <Text style={styles.itemMainDescricao}>Equipe: {item.idEquipeNavigation.nome}</Text>
             </View>
         </View>
     )
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     // container
     professoresContainer: {
         flex: 1,
+        marginBottom: 30
     },
 
     // header
@@ -124,4 +125,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Professores
+export default Professores;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, Text, FlatList, ScrollView, StyleSheet, AsyncStorage, TextInput, TouchableOpacity} from "react-native";
+import { View, Text, FlatList, ScrollView, StyleSheet, AsyncStorage, TextInput, TouchableOpacity } from "react-native";
 
 import apiLogado from "../services/apiLogado";
 // não esquecer de implentar as TAGs usada para desenvolver o html aki
@@ -25,15 +25,13 @@ class Temas extends Component {
     listarTemas = async () => {
         const token = await AsyncStorage.getItem("UsuarioToken");
 
-        const resposta = await apiLogado.get("/Tema", {
+        const resposta = await apiLogado.get("/Tema/TemasAtivos", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
         const dadosLista = resposta.data;
         this.setState({ listaTemas: dadosLista });
-
-        console.warn(dadosLista)
     };
 
     // cadastro de temas
@@ -45,20 +43,20 @@ class Temas extends Component {
                 tema: this.state.tema,
                 ativo: 1
             },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
             // manipula a respota
-            if(resposta.status === 200) {
-                this.setState({mensagem: "Tema cadastrado com sucesso!"});
+            if (resposta.status === 200) {
+                this.setState({ mensagem: "Tema cadastrado com sucesso!" });
                 this.listarTemas();
             }
         }
-        catch(erro) {
-            this.setState({mensagem: "Dados inválidos!"})
+        catch (erro) {
+            this.setState({ mensagem: "Dados inválidos!" })
         }
     }
 
@@ -108,8 +106,10 @@ class Temas extends Component {
     renderizarItem = ({ item }) => (
         <View style={styles.itemContainer}>
             <View style={styles.itemHeader}>
-                <Text style={styles.itemHeaderId}>{item.temaid}</Text>
                 <Text style={styles.itemHeaderTema}>{item.tema}</Text>
+            </View>
+            <View>
+                <Text style={styles.itemHeaderId}>Id: {item.temaid}</Text>
             </View>
         </View>
 
@@ -160,8 +160,6 @@ const styles = StyleSheet.create({
 
     // header (titulo e tema)
     itemHeader: {
-        justifyContent: "center",
-        flexDirection: "row",
     },
 
     // item
@@ -169,13 +167,12 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 17,
         color: "#1C1C1C",
-        textAlign: "left",
-        marginLeft: 10
+        textAlign: "center"
     },
     itemHeaderId: {
         fontSize: 15,
         color: "#4F4F4F",
-        textAlign: "center"
+        textAlign: "left",
     },
 
     // form (formulario de cadastro)

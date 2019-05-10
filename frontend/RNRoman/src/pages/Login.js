@@ -29,11 +29,12 @@ class Login extends Component {
             });
 
             // manipulando a resposta
+
             if (resposta.status === 200) {
-                const token = respota.data.token;
+                const token = resposta.data.token;
                 await AsyncStorage.setItem("UsuarioToken", token);
-                this.props.navigation.navigate("MenuNavigator");
                 this.setState({ mensagem: "Login efetuado com sucesso!" })
+                this.props.navigation.navigate("MenuNavigator");
             }
         }
         catch (erro) {

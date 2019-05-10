@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import jwt from "jwt-decode";
 
 import { View, Text, FlatList, ScrollView, StyleSheet, AsyncStorage} from "react-native";
 
@@ -29,6 +30,8 @@ class Projetos extends Component {
         });
         const dadosLista = resposta.data;
         this.setState({ listaProjetos: dadosLista });
+
+        console.warn()
     };
 
     // layout
@@ -55,10 +58,10 @@ class Projetos extends Component {
         <View style={styles.itemContainer}>
             <View style={styles.itemHeader}>
                 <Text style={styles.itemHeaderTitulo}>{item.titulo}</Text>
-                <Text style={styles.itemHeaderTema}>{item.idTemaNavigation.tema}</Text>
+                <Text style={styles.itemHeaderTema}>Tema: {item.idTemaNavigation.tema}</Text>
             </View>
             <View style={styles.itemMain}>
-                <Text style={styles.itemMainDescricao}>{item.descricao}</Text>
+                <Text style={styles.itemMainDescricao}>Descricao: {item.descricao}</Text>
             </View>
         </View>
 
@@ -70,6 +73,7 @@ const styles = StyleSheet.create({
     // container
     projetosContainer: {
         flex: 1,
+        marginBottom: 30
     },
 
     // header
