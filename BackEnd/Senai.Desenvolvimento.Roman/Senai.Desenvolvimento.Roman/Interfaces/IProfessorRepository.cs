@@ -12,12 +12,12 @@ namespace Senai.Desenvolvimento.Roman.Interfaces
         /// Lista os professores cadastrados
         /// </summary>
         /// <returns>Retorna uma lista de todos os professores cadastrados</returns>
-        List<Professores> listarProfessores();
+        List<Professores> ListarProfessores();
 
         /// <summary>
         /// Lista os professores pela área selecionada
         /// </summary>
         /// <returns>Retorna uma lista de professores filtrados por área</returns>
-        List<Professores> listarProfessoresPorArea(string equipe);
+        List<Professores> ListarProfessoresPorArea(string equipe);
     }
 }

@@ -18,7 +18,7 @@ namespace Senai.Sprint5.Exercicio.Roman.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private IUsuarioRepository UsuarioRepository { get; set; }
+        private readonly IUsuarioRepository UsuarioRepository;
 
         public LoginController()
         {
@@ -26,7 +26,7 @@ namespace Senai.Sprint5.Exercicio.Roman.Controllers
         }
 
         [HttpPost]
-        public IActionResult FazerLogin (LoginViewModel login)
+        public IActionResult FazerLogin(LoginViewModel login)
         {
             try
             {
@@ -43,16 +43,12 @@ namespace Senai.Sprint5.Exercicio.Roman.Controllers
                     new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.Id.ToString()),
                     new Claim(ClaimTypes.Role, usuarioBuscado.IdTipoUsuarioNavigation.Tipo.ToString()) 
-                    //Definindo a role e setando o valor dela
-                    //new Claim("Roles" , usuarioBuscado.IdTipoUsuarioNavigation.Tipo.ToString())
                 };
 
                 var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("roman-authentication"));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                 var token = new JwtSecurityToken(
-                     //Nome do Issuer, de onde esta vindo
                      issuer: "Roman.Manha",
-                     //Nome da Audience, de onde está vindo
                      audience: "Roman.Manha",
                      claims: claims,
                      expires: DateTime.Now.AddMinutes(40),
@@ -65,14 +61,11 @@ namespace Senai.Sprint5.Exercicio.Roman.Controllers
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     user = usuarioBuscado
                 });
-                //Pode descansar agora meu rapaz 2.0
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
-
     }
 }

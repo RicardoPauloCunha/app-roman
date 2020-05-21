@@ -15,7 +15,7 @@ namespace Senai.Desenvolvimento.Roman.Controllers
     [ApiController]
     public class ProfessorController : ControllerBase
     {
-        private IProfessorRepository ProfessorRepository { get; set; }
+        private readonly IProfessorRepository ProfessorRepository;
 
         public ProfessorController()
         {
@@ -24,12 +24,11 @@ namespace Senai.Desenvolvimento.Roman.Controllers
 
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet]
-        public IActionResult listarProfessores()
+        public IActionResult ListarProfessores()
         {
             try
             {
-
-                return Ok(ProfessorRepository.listarProfessores());
+                return Ok(ProfessorRepository.ListarProfessores());
             }
             catch (Exception ex)
             {
@@ -39,12 +38,11 @@ namespace Senai.Desenvolvimento.Roman.Controllers
 
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet("Area/{equipe}")]        
-        public IActionResult listarPorArea(string equipe)
+        public IActionResult ListarPorArea(string equipe)
         {
             try
             {
-                
-                return Ok(ProfessorRepository.listarProfessoresPorArea(equipe));                                                
+                return Ok(ProfessorRepository.ListarProfessoresPorArea(equipe));                                                
             }
             catch (Exception ex)
             {

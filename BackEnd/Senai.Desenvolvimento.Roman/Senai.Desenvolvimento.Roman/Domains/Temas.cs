@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Senai.Desenvolvimento.Roman.Domains
 {
@@ -12,9 +11,7 @@ namespace Senai.Desenvolvimento.Roman.Domains
         }
 
         public int Temaid { get; set; }
-        [Required(ErrorMessage = "Informe o Tema a ser cadastrado")]
         public string Tema { get; set; }
-        [Required(ErrorMessage = "Informe o estado do tema")]
         public bool Ativo { get; set; }
 
         public ICollection<Projetos> Projetos { get; set; }

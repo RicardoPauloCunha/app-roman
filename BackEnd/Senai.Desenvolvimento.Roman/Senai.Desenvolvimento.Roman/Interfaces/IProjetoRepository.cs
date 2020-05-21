@@ -12,12 +12,12 @@ namespace Senai.Sprint5.Exercicio.Roman.Interfaces
         /// Cadastra um novo projeto
         /// </summary>
         /// <param name="projeto"></param>
-        void Cadastrar(Projetos projeto);
+        void Cadastrar(ProjetosViewModel projeto);
 
         /// <summary>
         /// Lista projetos
         /// </summary>
         /// <returns>Retorna uma lista de projetos cadstrados</returns>
-     List<Projetos> listarProjetos();
+     List<Projetos> ListarProjetos();
     }
 }

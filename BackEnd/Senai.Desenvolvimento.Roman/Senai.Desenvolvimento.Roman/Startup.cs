@@ -13,8 +13,6 @@ namespace Senai.Desenvolvimento.Roman
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -30,9 +28,9 @@ namespace Senai.Desenvolvimento.Roman
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-                //Tirando o looping do resultado json objeto dentro de objeto
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             }).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
+
             services.AddAuthentication(
                 options =>
                 {
@@ -56,10 +54,30 @@ namespace Senai.Desenvolvimento.Roman
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Roman API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "API Roman",
+                    Description = "Documentação da Api do Projeto Roman",
+                });
+
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", new string[] { }},
+                };
+
+                c.AddSecurityDefinition(
+                    "Bearer",
+                    new ApiKeyScheme
+                    {
+                        In = "header",
+                        Description = "Copie 'Bearer {token}",
+                        Name = "Authorization",
+                        Type = "apiKey"
+                    });
+
+                c.AddSecurityRequirement(security);
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,11 +85,10 @@ namespace Senai.Desenvolvimento.Roman
         {
             app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Roman API");
+                c.DocumentTitle = "API InLock Game";
             });
 
             if (env.IsDevelopment())

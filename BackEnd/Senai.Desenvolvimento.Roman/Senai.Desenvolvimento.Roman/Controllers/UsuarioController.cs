@@ -35,21 +35,5 @@ namespace Senai.Desenvolvimento.Roman.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //[Authorize(Roles = "ADMINISTRADOR")]
-        //[HttpPost]
-        //public IActionResult Cadastrar(Usuarios usuario)
-        //{
-        //    try
-        //    {
-        //        UsuarioRepository.Cadastrar(usuario);
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
-
     }
 }

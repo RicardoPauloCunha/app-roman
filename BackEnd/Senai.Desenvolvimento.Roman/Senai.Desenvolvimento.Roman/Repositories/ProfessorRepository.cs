@@ -10,17 +10,22 @@ namespace Senai.Desenvolvimento.Roman.Repositories
 {
     public class ProfessorRepository : IProfessorRepository
     {
-        private readonly string StringConexao = "Data Source=.\\SQLEXPRESS;Initial Catalog=ROMAN;User ID = sa; Password = 132;";
-        public List<Professores> listarProfessores()
+        private readonly string StringConexao = "DATA source=.\\SQLSERVERJIROS; initial catalog=Roman; user id=sa; pwd=ji_15?27101001_roS";
+
+        public List<Professores> ListarProfessores()
         {
             List<Professores> lista = new List<Professores>();
+
             string Select = "SELECT P.PROFESSOR_ID, U.NOME, E.EQUIPE FROM PROFESSORES P JOIN USUARIOS U ON U.ID = P.ID_USUARIO JOIN EQUIPES E ON E.EQUIPE_ID = P.ID_AREA";
+
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
                 using(SqlCommand cmd = new SqlCommand(Select, con))
                 {
-                con.Open();
+                    con.Open();
+
                     SqlDataReader sqr = cmd.ExecuteReader();
+
                     if (sqr.HasRows)
                     {
                         while (sqr.Read())
@@ -28,9 +33,9 @@ namespace Senai.Desenvolvimento.Roman.Repositories
                             Professores professor = new Professores()
                             {
                                 ProfessorId = Convert.ToInt32(sqr["PROFESSOR_ID"]),
-                                IdEquipeNavigation = new Equipes()
+                                IdAreaNavigation = new Equipes()
                                 {
-                                    Nome = sqr["EQUIPE"].ToString()
+                                    Equipe = sqr["EQUIPE"].ToString()
                                 },
                                 IdUsuarioNavigation = new Usuarios()
                                 {
@@ -41,22 +46,25 @@ namespace Senai.Desenvolvimento.Roman.Repositories
                         }
                     }
                     return lista;
-
                 }
             }
         }
 
-        public List<Professores> listarProfessoresPorArea(string equipe)
+        public List<Professores> ListarProfessoresPorArea(string equipe)
         {
             List<Professores> lista = new List<Professores>();
+
             string Select = "SELECT P.PROFESSOR_ID, U.NOME, E.EQUIPE FROM PROFESSORES P JOIN USUARIOS U ON U.ID = P.ID_USUARIO JOIN EQUIPES E ON E.EQUIPE_ID = P.ID_AREA WHERE E.EQUIPE = @EQUIPE";
+
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
-                    con.Open();
+                con.Open();
                 using (SqlCommand cmd = new SqlCommand(Select, con))
                 {
                     cmd.Parameters.AddWithValue("@EQUIPE", equipe);
+
                     SqlDataReader sqr = cmd.ExecuteReader();
+
                     if (sqr.HasRows)
                     {
                         while (sqr.Read())
@@ -64,9 +72,9 @@ namespace Senai.Desenvolvimento.Roman.Repositories
                             Professores professor = new Professores()
                             {
                                 ProfessorId = Convert.ToInt32(sqr["PROFESSOR_ID"]),
-                                IdEquipeNavigation = new Equipes()
+                                IdAreaNavigation = new Equipes()
                                 {
-                                    Nome = sqr["EQUIPE"].ToString()
+                                    Equipe = sqr["EQUIPE"].ToString()
                                 },
                                 IdUsuarioNavigation = new Usuarios()
                                 {
@@ -78,7 +86,7 @@ namespace Senai.Desenvolvimento.Roman.Repositories
                     }
                 }
             }
-                    return lista;
+            return lista;
         }
     }
 }

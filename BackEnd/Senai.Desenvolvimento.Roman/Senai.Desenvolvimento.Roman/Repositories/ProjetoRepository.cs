@@ -10,9 +10,9 @@ namespace Senai.Sprint5.Exercicio.Roman.Repositories
 {
     public class ProjetoRepository : IProjetoRepository
     {
-        private readonly string StringConexao = "Data Source=.\\SQLEXPRESS;Initial Catalog=ROMAN;User ID = sa; Password = 132;";
+        private readonly string StringConexao = "DATA source=.\\SQLSERVERJIROS; initial catalog=Roman; user id=sa; pwd=ji_15?27101001_roS";
 
-        public void Cadastrar(Projetos projeto)
+        public void Cadastrar(ProjetosViewModel projeto)
         {
             string Insert = "INSERT INTO PROJETOS VALUES(@TITULO, @DESCRICAO, @ID_TEMA, @ID_PROFESSOR)";                           
             using (SqlConnection con = new SqlConnection(StringConexao))
@@ -26,12 +26,10 @@ namespace Senai.Sprint5.Exercicio.Roman.Repositories
                     con.Open();
                     cmd.ExecuteNonQuery();
                 };
-
             }
-
         }
 
-        public List<Projetos> listarProjetos()
+        public List<Projetos> ListarProjetos()
         {
             string Select = "SELECT P.PROJETO_ID, U.NOME, P.TITULO, P.DESCRICAO, T.TEMA FROM PROJETOS P JOIN TEMAS T ON P.ID_TEMA = T.TEMAID JOIN PROFESSORES PS ON PS.PROFESSOR_ID = P.ID_PROFESSOR JOIN USUARIOS U ON U.ID = P.ID_PROFESSOR";
 
@@ -40,9 +38,11 @@ namespace Senai.Sprint5.Exercicio.Roman.Repositories
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
                 con.Open();
+
                 using (SqlCommand cmd = new SqlCommand(Select, con))
                 {
                     SqlDataReader sqr = cmd.ExecuteReader();
+
                     if (sqr.HasRows)
                     {
                         while (sqr.Read())
@@ -55,10 +55,6 @@ namespace Senai.Sprint5.Exercicio.Roman.Repositories
                                 IdTemaNavigation = new Temas()
                                 {
                                     Tema = sqr["TEMA"].ToString()
-                                },
-                                Usuario = new Usuarios()
-                                {
-                                    Nome = sqr["NOME"].ToString()
                                 }
                             };
                             listarProjetos.Add(projeto);

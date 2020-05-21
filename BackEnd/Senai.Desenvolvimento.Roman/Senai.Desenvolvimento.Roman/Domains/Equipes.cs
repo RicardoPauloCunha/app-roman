@@ -5,9 +5,14 @@ namespace Senai.Desenvolvimento.Roman.Domains
 {
     public partial class Equipes
     {
-        public int EquipeId { get; set; }
-        public string Nome { get; set; }
+        public Equipes()
+        {
+            Professores = new HashSet<Professores>();
+        }
 
-        public Professores professor { get; set; }
+        public int EquipeId { get; set; }
+        public string Equipe { get; set; }
+
+        public ICollection<Professores> Professores { get; set; }
     }
 }

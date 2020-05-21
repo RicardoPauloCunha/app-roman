@@ -29,7 +29,7 @@ namespace Senai.Desenvolvimento.Roman.Controllers
         {
             try
             {
-                return Ok(TemaRepository.listarTemas());
+                return Ok(TemaRepository.ListarTemas());
             }
             catch(Exception ex)
             {
@@ -37,7 +37,7 @@ namespace Senai.Desenvolvimento.Roman.Controllers
             }
         }
 
-        [Route("{TemasAtivos}")]
+        [Route("Ativos")]
         [Authorize(Roles = "ADMINISTRADOR, PROFESSOR")]
         [HttpGet]
         public IActionResult ListarTemasAtivos()
@@ -54,7 +54,7 @@ namespace Senai.Desenvolvimento.Roman.Controllers
 
         [Authorize(Roles = "ADMINISTRADOR, PROFESSOR")]
         [HttpPost]
-        public IActionResult Cadastrar(Temas tema)
+        public IActionResult Cadastrar(TemasViewModel tema)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Senai.Desenvolvimento.Roman.Controllers
 
         [Authorize(Roles = "ADMINISTRADOR, PROFESSOR")]        
         [HttpPut]
-        public IActionResult Atualizar(Temas tema)
+        public IActionResult Atualizar(TemasViewModel tema)
         {
             try
             {                

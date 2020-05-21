@@ -12,19 +12,19 @@ namespace Senai.Desenvolvimento.Roman.Interfaces
         /// Cadastra um tema
         /// </summary>
         /// <param name="tema"></param>
-        void Cadastrar(Temas tema);
+        void Cadastrar(TemasViewModel tema);
 
         /// <summary>
         /// Lista os temas
         /// </summary>
         /// <returns>Retorna uma lista de todos os temas cadastrados</returns>
-        List<Temas> listarTemas();
+        List<Temas> ListarTemas();
 
         /// <summary>
         /// Altera um tema que tenha o mesmo id recebido como parâmetro.
         /// </summary>
         /// <param name="id"></param>
-        void Alterar(Temas tema);
+        void Alterar(TemasViewModel tema);
 
         /// <summary>
         /// Lista os temas ativos

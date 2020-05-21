@@ -10,17 +10,16 @@ namespace Senai.Desenvolvimento.Roman.Repositories
 {
     public class TemaRepository : ITemaRepository
     {
-    private readonly string StringConexao = "Data Source=.\\SQLEXPRESS;Initial Catalog=ROMAN;User ID = sa; Password = 132;";
+    private readonly string StringConexao = "DATA source=.\\SQLSERVERJIROS; initial catalog=Roman; user id=sa; pwd=ji_15?27101001_roS";
 
-        public void Alterar(Temas tema)
+        public void Alterar(TemasViewModel tema)
         {
             string Update = "UPDATE TEMAS SET ATIVO = @ATIVO WHERE TEMAID = @TEMAID";
             using(SqlConnection con = new SqlConnection(StringConexao))
             {
-                
                 using(SqlCommand cmd = new SqlCommand(Update, con))
                 {
-                    cmd.Parameters.AddWithValue("TEMAID", tema.Temaid);                    
+                    cmd.Parameters.AddWithValue("TEMAID", tema.TemaId);                    
                     cmd.Parameters.AddWithValue("@ATIVO", tema.Ativo);
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -28,7 +27,7 @@ namespace Senai.Desenvolvimento.Roman.Repositories
             }
         }
 
-        public void Cadastrar(Temas tema)
+        public void Cadastrar(TemasViewModel tema)
         {
             string Insert = "INSERT INTO TEMAS VALUES(@TEMA, @ATIVO)";
 
@@ -44,15 +43,17 @@ namespace Senai.Desenvolvimento.Roman.Repositories
             }
         }   
 
-        public List<Temas> listarTemas()
+        public List<Temas> ListarTemas()
         {
             string Select = "SELECT T.TEMAID, T.TEMA, T.ATIVO FROM TEMAS T";
 
             List<Temas> listarTemas = new List<Temas>();
-            using(SqlConnection con = new SqlConnection(StringConexao))
+
+            using (SqlConnection con = new SqlConnection(StringConexao))
             {
                 con.Open();
-                using(SqlCommand cmd = new SqlCommand(Select, con))
+
+                using (SqlCommand cmd = new SqlCommand(Select, con))
                 {
                     SqlDataReader sqr = cmd.ExecuteReader();
 
@@ -76,12 +77,14 @@ namespace Senai.Desenvolvimento.Roman.Repositories
 
         public List<Temas> TemasAtivos()
         {
-            string Select = "SELECT T.TEMAID, T.TEMA FROM TEMAS T WHERE T.ATIVO = 0";
+            string Select = "SELECT T.TEMAID, T.TEMA FROM TEMAS T WHERE T.ATIVO = 1";
 
             List<Temas> listarTemas = new List<Temas>();
+
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
                 con.Open();
+
                 using (SqlCommand cmd = new SqlCommand(Select, con))
                 {
                     SqlDataReader sqr = cmd.ExecuteReader();

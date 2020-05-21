@@ -12,3 +12,17 @@ C:\Users\47575406808\Desktop\Sprint 5\Desafio\senai-roman-desafio-404\BackEnd\Se
 C:\Users\47575406808\Desktop\Sprint 5\Desafio\senai-roman-desafio-404\BackEnd\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.RazorTargetAssemblyInfo.cache
 C:\Users\47575406808\Desktop\Sprint 5\Desafio\senai-roman-desafio-404\BackEnd\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.dll
 C:\Users\47575406808\Desktop\Sprint 5\Desafio\senai-roman-desafio-404\BackEnd\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.pdb
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\bin\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.deps.json
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\bin\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.runtimeconfig.json
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\bin\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.runtimeconfig.dev.json
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\bin\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.dll
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\bin\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.pdb
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.csprojAssemblyReference.cache
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.csproj.CoreCompileInputs.cache
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.RazorAssemblyInfo.cache
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.RazorAssemblyInfo.cs
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.AssemblyInfoInputs.cache
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.AssemblyInfo.cs
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.RazorTargetAssemblyInfo.cache
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.dll
+C:\Users\ricar\OneDrive\Área de Trabalho\Senai\senai-roman-desafio-404\Backend\Senai.Desenvolvimento.Roman\Senai.Desenvolvimento.Roman\obj\Debug\netcoreapp2.1\Senai.Desenvolvimento.Roman.pdb

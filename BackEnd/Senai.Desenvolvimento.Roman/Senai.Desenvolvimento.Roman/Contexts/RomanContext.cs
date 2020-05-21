@@ -24,14 +24,12 @@ namespace Senai.Desenvolvimento.Roman.Domains
         public virtual DbSet<Usuarios> Usuarios { get; set; }
 
         // Unable to generate entity type for table 'dbo.PROFESSOR_EQUIPE'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.PROFESSOR_PROJETO'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS; initial catalog = ROMAN;user id = sa; pwd = 132");
+                optionsBuilder.UseSqlServer("DATA source=.\\SQLSERVERJIROS; initial catalog=Roman; user id=sa; pwd=ji_15?27101001_roS");
             }
         }
 
@@ -50,7 +48,7 @@ namespace Senai.Desenvolvimento.Roman.Domains
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Administradores)
                     .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK__ADMINISTR__ID_US__534D60F1");
+                    .HasConstraintName("FK__ADMINISTR__ID_US__48CFD27E");
             });
 
             modelBuilder.Entity<Equipes>(entity =>
@@ -59,15 +57,15 @@ namespace Senai.Desenvolvimento.Roman.Domains
 
                 entity.ToTable("EQUIPES");
 
-                entity.HasIndex(e => e.Nome)
-                    .HasName("UQ__EQUIPES__E2AB1FF45B02940E")
+                entity.HasIndex(e => e.Equipe)
+                    .HasName("UQ__EQUIPES__F9437C8A780EE43E")
                     .IsUnique();
 
                 entity.Property(e => e.EquipeId).HasColumnName("EQUIPE_ID");
 
-                entity.Property(e => e.Nome)
+                entity.Property(e => e.Equipe)
                     .IsRequired()
-                    .HasColumnName("NOME")
+                    .HasColumnName("EQUIPE")
                     .HasMaxLength(200)
                     .IsUnicode(false);
             });
@@ -78,14 +76,27 @@ namespace Senai.Desenvolvimento.Roman.Domains
 
                 entity.ToTable("PROFESSORES");
 
+                entity.HasIndex(e => e.IdUsuario)
+                    .HasName("UQ__PROFESSO__91136B912DBED5D9")
+                    .IsUnique();
+
                 entity.Property(e => e.ProfessorId).HasColumnName("PROFESSOR_ID");
+
+                entity.Property(e => e.IdArea).HasColumnName("ID_AREA");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("ID_USUARIO");
 
-                entity.HasOne(d => d.IdUsuarioNavigation)
+                entity.HasOne(d => d.IdAreaNavigation)
                     .WithMany(p => p.Professores)
-                    .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK__PROFESSOR__ID_US__5070F446");
+                    .HasForeignKey(d => d.IdArea)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PROFESSOR__ID_AR__4316F928");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithOne(p => p.Professores)
+                    .HasForeignKey<Professores>(d => d.IdUsuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PROFESSOR__ID_US__4222D4EF");
             });
 
             modelBuilder.Entity<Projetos>(entity =>
@@ -95,7 +106,7 @@ namespace Senai.Desenvolvimento.Roman.Domains
                 entity.ToTable("PROJETOS");
 
                 entity.HasIndex(e => e.Titulo)
-                    .HasName("UQ__PROJETOS__AC728E50234C2C44")
+                    .HasName("UQ__PROJETOS__AC728E5059656F3B")
                     .IsUnique();
 
                 entity.Property(e => e.ProjetoId).HasColumnName("PROJETO_ID");
@@ -106,6 +117,8 @@ namespace Senai.Desenvolvimento.Roman.Domains
                     .HasMaxLength(700)
                     .IsUnicode(false);
 
+                entity.Property(e => e.IdProfessor).HasColumnName("ID_PROFESSOR");
+
                 entity.Property(e => e.IdTema).HasColumnName("ID_TEMA");
 
                 entity.Property(e => e.Titulo)
@@ -114,11 +127,17 @@ namespace Senai.Desenvolvimento.Roman.Domains
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
+                entity.HasOne(d => d.IdProfessorNavigation)
+                    .WithMany(p => p.Projetos)
+                    .HasForeignKey(d => d.IdProfessor)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PROJETOS__ID_PRO__5070F446");
+
                 entity.HasOne(d => d.IdTemaNavigation)
                     .WithMany(p => p.Projetos)
                     .HasForeignKey(d => d.IdTema)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PROJETOS__ID_TEM__5FB337D6");
+                    .HasConstraintName("FK__PROJETOS__ID_TEM__4F7CD00D");
             });
 
             modelBuilder.Entity<Temas>(entity =>
@@ -128,7 +147,7 @@ namespace Senai.Desenvolvimento.Roman.Domains
                 entity.ToTable("TEMAS");
 
                 entity.HasIndex(e => e.Tema)
-                    .HasName("UQ__TEMAS__B7FF44CE302BA7BE")
+                    .HasName("UQ__TEMAS__B7FF44CE7A0872CE")
                     .IsUnique();
 
                 entity.Property(e => e.Temaid).HasColumnName("TEMAID");
@@ -149,7 +168,7 @@ namespace Senai.Desenvolvimento.Roman.Domains
                 entity.ToTable("TIPO_USUARIOS");
 
                 entity.HasIndex(e => e.Tipo)
-                    .HasName("UQ__TIPO_USU__B6FCAAA29C483329")
+                    .HasName("UQ__TIPO_USU__B6FCAAA29CB2469F")
                     .IsUnique();
 
                 entity.Property(e => e.TipoUsuarioId).HasColumnName("TIPO_USUARIO_ID");
@@ -166,7 +185,7 @@ namespace Senai.Desenvolvimento.Roman.Domains
                 entity.ToTable("USUARIOS");
 
                 entity.HasIndex(e => e.Email)
-                    .HasName("UQ__USUARIOS__161CF7246C3D0752")
+                    .HasName("UQ__USUARIOS__161CF72403E4D43F")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
@@ -195,7 +214,7 @@ namespace Senai.Desenvolvimento.Roman.Domains
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.IdTipoUsuario)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__USUARIOS__ID_TIP__4D94879B");
+                    .HasConstraintName("FK__USUARIOS__ID_TIP__3B75D760");
             });
         }
     }

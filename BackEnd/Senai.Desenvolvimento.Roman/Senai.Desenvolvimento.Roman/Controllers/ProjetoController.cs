@@ -15,7 +15,7 @@ namespace Senai.Sprint5.Exercicio.Roman.Controllers
     [ApiController]
     public class ProjetoController : ControllerBase
     {
-        private IProjetoRepository ProjetoRepository { get; set; }
+        private readonly IProjetoRepository ProjetoRepository;
 
         public ProjetoController()
         {
@@ -28,16 +28,17 @@ namespace Senai.Sprint5.Exercicio.Roman.Controllers
         {
             try
             {
-                return Ok(ProjetoRepository.listarProjetos());
+                return Ok(ProjetoRepository.ListarProjetos());
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
         [Authorize(Roles = "ADMINISTRADOR, PROFESSOR")]
         [HttpPost]
-        public IActionResult Cadastrar(Projetos projeto)
+        public IActionResult Cadastrar(ProjetosViewModel projeto)
         {
             try
             {
