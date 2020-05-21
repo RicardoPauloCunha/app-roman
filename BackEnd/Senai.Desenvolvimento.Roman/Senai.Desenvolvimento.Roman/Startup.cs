@@ -88,7 +88,7 @@ namespace Senai.Desenvolvimento.Roman
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Roman API");
-                c.DocumentTitle = "API InLock Game";
+                c.DocumentTitle = "API Roman";
             });
 
             if (env.IsDevelopment())
